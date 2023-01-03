@@ -25,6 +25,8 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    private final String PESSOA_INEXISTENTE_ID = "Não existe pessoa com esse ID!";
+
     @Override
     @Transactional
     public Endereco salvarEndereco(EnderecoDTO dto) {
@@ -49,7 +51,7 @@ public class EnderecoServiceImpl implements EnderecoService {
                 findById(idPessoa)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Não existe pessoa com esse ID!"));
+                                PESSOA_INEXISTENTE_ID));
         return enderecoRepository.findByPessoa(pessoa);
     }
 
@@ -59,7 +61,7 @@ public class EnderecoServiceImpl implements EnderecoService {
                 findById(idPessoa)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Não existe pessoa com esse ID!"));
+                                PESSOA_INEXISTENTE_ID));
         ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase();
         Endereco endereco = new Endereco();
         endereco.setPessoa(pessoa);

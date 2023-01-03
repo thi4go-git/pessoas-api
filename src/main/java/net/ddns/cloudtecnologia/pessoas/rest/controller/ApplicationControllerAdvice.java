@@ -1,6 +1,7 @@
 package net.ddns.cloudtecnologia.pessoas.rest.controller;
 
 import net.ddns.cloudtecnologia.pessoas.exception.ApiErrors;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,7 @@ public class ApplicationControllerAdvice {
         BindingResult bindingResult = ex.getBindingResult();
         List<String> messages = bindingResult.getAllErrors()
                 .stream()
-                .map(objectError -> objectError.getDefaultMessage())
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
         return new ApiErrors(messages);
     }
@@ -31,8 +32,7 @@ public class ApplicationControllerAdvice {
     public ResponseEntity handleResponseStatusException(ResponseStatusException ex) {
         String mensagemErro = ex.getMessage();
         HttpStatus codigoStatus = ex.getStatus();
-        ApiErrors apiErrors = new ApiErrors(mensagemErro);
-        return new ResponseEntity(apiErrors, codigoStatus);
+        return new ResponseEntity(new ApiErrors(mensagemErro), codigoStatus);
     }
 
 
