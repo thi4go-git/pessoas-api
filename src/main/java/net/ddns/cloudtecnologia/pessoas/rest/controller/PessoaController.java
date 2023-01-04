@@ -2,6 +2,7 @@ package net.ddns.cloudtecnologia.pessoas.rest.controller;
 
 import net.ddns.cloudtecnologia.pessoas.model.entity.Pessoa;
 import net.ddns.cloudtecnologia.pessoas.rest.dto.PessoaDTO;
+import net.ddns.cloudtecnologia.pessoas.service.PessoaService;
 import net.ddns.cloudtecnologia.pessoas.service.impl.PessoaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

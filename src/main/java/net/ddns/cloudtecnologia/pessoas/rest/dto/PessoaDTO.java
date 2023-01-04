@@ -16,4 +16,6 @@ public class PessoaDTO {
 
     @NotEmpty(message = "{campo.dataNascimento.obrigatorio}")
     private String dataNascimento;
+
+  
 }

@@ -38,4 +38,5 @@ public class EnderecoDTO {
         this.cidade = end.getCidade();
         this.idPessoa = end.getPessoa().getId();
     }
+
 }
