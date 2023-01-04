@@ -127,7 +127,7 @@ class PessoaServiceImplTest {
     }
 
     private void startPessoa() {
-        pessoaDTO = new PessoaDTO(NOME, NASCIMENTO);
+        pessoaDTO = new PessoaDTO(ID, NOME, NASCIMENTO);
         pessoa = new Pessoa(pessoaDTO);
         optionalPessoa = Optional.of(new Pessoa(pessoaDTO));
     }

@@ -44,6 +44,7 @@ public class Endereco {
         this.numero = dto.getNumero();
         this.cidade = dto.getCidade();
         this.pessoa = pessoa;
+        this.principal = false;
     }
 
 

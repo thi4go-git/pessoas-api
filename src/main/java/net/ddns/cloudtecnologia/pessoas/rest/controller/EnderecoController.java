@@ -1,13 +1,12 @@
 package net.ddns.cloudtecnologia.pessoas.rest.controller;
 
-import net.ddns.cloudtecnologia.pessoas.model.entity.Endereco;
 import net.ddns.cloudtecnologia.pessoas.rest.dto.EnderecoDTO;
 import net.ddns.cloudtecnologia.pessoas.service.impl.EnderecoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,18 +23,24 @@ public class EnderecoController {
     }
 
     @GetMapping("/enderecos")
-    public List<Endereco> listarTodosEnderecos() {
-        return service.listarEnderecos();
+    public List<EnderecoDTO> listarTodosEnderecos() {
+        List<EnderecoDTO> lista = new ArrayList<>();
+        service.listarEnderecos().stream().forEach(item -> lista.add(EnderecoDTO.converterParaDto(item)));
+        return lista;
     }
 
     @GetMapping("/pessoas/{id}/enderecos")
-    public List<Endereco> listarEnderecosDaPessoa(@PathVariable Integer id) {
-        return service.listarEnderecosPessoa(id);
+    public List<EnderecoDTO> listarEnderecosDaPessoa(@PathVariable Integer id) {
+        List<EnderecoDTO> lista = new ArrayList<>();
+        service.listarEnderecosPessoa(id).stream().forEach(item -> lista.add(EnderecoDTO.converterParaDto(item)));
+        return lista;
     }
 
     @GetMapping("/pessoas/{id}/enderecos/principal")
-    public List<Endereco> listarEnderecoPrincipalDaPessoa(@PathVariable Integer id) {
-        return service.listarEnderecoPrincipalPessoa(id);
+    public List<EnderecoDTO> listarEnderecoPrincipalDaPessoa(@PathVariable Integer id) {
+        List<EnderecoDTO> lista = new ArrayList<>();
+        service.listarEnderecoPrincipalPessoa(id).stream().forEach(item -> lista.add(EnderecoDTO.converterParaDto(item)));
+        return lista;
     }
 
     @PatchMapping("/pessoas/{idPessoa}/enderecos/principal/{idEndereco}")

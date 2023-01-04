@@ -46,10 +46,10 @@ class PessoaControllerTest {
     void salvarPessoaSucesso() {
         when(service.salvarPessoa(any())).thenReturn(pessoa);
         //
-        Pessoa response = controller.salvarPessoa(pessoaDTO);
+        PessoaDTO response = controller.salvarPessoa(pessoaDTO);
         //
         Assertions.assertNotNull(response);
-        Assertions.assertEquals(Pessoa.class, response.getClass());
+        Assertions.assertEquals(PessoaDTO.class, response.getClass());
         Assertions.assertEquals(NOME, response.getNome());
     }
 
@@ -57,12 +57,12 @@ class PessoaControllerTest {
     void listarPessoas() {
         when(service.listarPessoas()).thenReturn(List.of(pessoa));
         //
-        List<Pessoa> lista = controller.listarTodasAsPessoas();
+        List<PessoaDTO> lista = controller.listarTodasAsPessoas();
         //
         int tamanhoEsperado = 1;
         Assertions.assertNotNull(lista);
         Assertions.assertEquals(tamanhoEsperado, lista.size());
-        Assertions.assertEquals(Pessoa.class, lista.get(INDEX_0).getClass());
+        Assertions.assertEquals(PessoaDTO.class, lista.get(INDEX_0).getClass());
         Assertions.assertEquals(NOME, lista.get(INDEX_0).getNome());
     }
 
@@ -70,16 +70,16 @@ class PessoaControllerTest {
     void consultarPessoaId() {
         when(service.consultarPessoaId(anyInt())).thenReturn(pessoa);
         //
-        Pessoa response = controller.consultarPessoaId(ID);
+        PessoaDTO response = controller.consultarPessoaId(ID);
         //
         Assertions.assertNotNull(response);
-        Assertions.assertEquals(Pessoa.class, response.getClass());
+        Assertions.assertEquals(PessoaDTO.class, response.getClass());
         Assertions.assertEquals(NOME, response.getNome());
     }
 
 
     private void startPessoa() {
-        pessoaDTO = new PessoaDTO(NOME, NASCIMENTO);
+        pessoaDTO = new PessoaDTO(ID, NOME, NASCIMENTO);
         pessoa = new Pessoa(pessoaDTO);
     }
 }
