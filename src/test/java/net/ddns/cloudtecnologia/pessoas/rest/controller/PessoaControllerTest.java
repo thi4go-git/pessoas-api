@@ -77,13 +77,6 @@ class PessoaControllerTest {
         Assertions.assertEquals(NOME, response.getNome());
     }
 
-    @Test
-    void deletarPessoa() {
-    }
-
-    @Test
-    void atualizarPessoa() {
-    }
 
     private void startPessoa() {
         pessoaDTO = new PessoaDTO(NOME, NASCIMENTO);
