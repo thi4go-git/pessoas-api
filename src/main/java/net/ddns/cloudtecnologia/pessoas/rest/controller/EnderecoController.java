@@ -24,17 +24,17 @@ public class EnderecoController {
     }
 
     @GetMapping("/enderecos")
-    public List<Endereco> listarEnderecos() {
+    public List<Endereco> listarTodosEnderecos() {
         return service.listarEnderecos();
     }
 
     @GetMapping("/pessoas/{id}/enderecos")
-    public List<Endereco> listarEnderecosPessoa(@PathVariable Integer id) {
+    public List<Endereco> listarEnderecosDaPessoa(@PathVariable Integer id) {
         return service.listarEnderecosPessoa(id);
     }
 
     @GetMapping("/pessoas/{id}/enderecos/principal")
-    public List<Endereco> listarEnderecoPrincipalPessoa(@PathVariable Integer id) {
+    public List<Endereco> listarEnderecoPrincipalDaPessoa(@PathVariable Integer id) {
         return service.listarEnderecoPrincipalPessoa(id);
     }
 

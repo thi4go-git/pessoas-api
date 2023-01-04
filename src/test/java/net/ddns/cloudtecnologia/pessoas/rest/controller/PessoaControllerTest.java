@@ -38,7 +38,7 @@ class PessoaControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         startPessoa();
     }
 
@@ -57,7 +57,7 @@ class PessoaControllerTest {
     void listarPessoas() {
         when(service.listarPessoas()).thenReturn(List.of(pessoa));
         //
-        List<Pessoa> lista = controller.listarPessoas();
+        List<Pessoa> lista = controller.listarTodasAsPessoas();
         //
         int tamanhoEsperado = 1;
         Assertions.assertNotNull(lista);
