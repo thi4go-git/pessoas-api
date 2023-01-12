@@ -1,7 +1,9 @@
 package net.ddns.cloudtecnologia.pessoas.service.impl;
 
 
+import net.ddns.cloudtecnologia.pessoas.model.entity.Endereco;
 import net.ddns.cloudtecnologia.pessoas.model.entity.Pessoa;
+import net.ddns.cloudtecnologia.pessoas.model.repository.EnderecoRepository;
 import net.ddns.cloudtecnologia.pessoas.model.repository.PessoaRepository;
 import net.ddns.cloudtecnologia.pessoas.rest.dto.PessoaDTO;
 import net.ddns.cloudtecnologia.pessoas.service.PessoaService;
@@ -17,8 +19,15 @@ import java.util.List;
 @Service
 public class PessoaServiceImpl implements PessoaService {
 
+    private static final String PESSOA_INEXISTENTE_ID = "Não existe pessoa com esse ID!";
+    private static final String ENDERECO_INEXISTENTE_ID = "Não existe Endereço com esse ID!";
+
+
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     @Override
     @Transactional
@@ -64,5 +73,56 @@ public class PessoaServiceImpl implements PessoaService {
                 findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada Pelo ID !"));
+    }
+
+    @Override
+    public List<Endereco> listarEnderecosPessoa(Integer idPessoa) {
+        Pessoa pessoa = pessoaRepository.
+                findById(idPessoa)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                PESSOA_INEXISTENTE_ID));
+        return pessoa.getEnderecos();
+    }
+
+    @Override
+    public Endereco listarEnderecoPrincipalPessoa(Integer idPessoa) {
+        Pessoa pessoa = pessoaRepository.
+                findById(idPessoa)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                PESSOA_INEXISTENTE_ID));
+        for (Endereco enderecoAtual : pessoa.getEnderecos()) {
+            if (enderecoAtual.isPrincipal()) {
+                return enderecoAtual;
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                ENDERECO_INEXISTENTE_ID);
+    }
+
+    @Override
+    @Transactional
+    public void definirEnderecoPrincipal(Integer idPessoa, Integer idEndereco) {
+        Pessoa pessoa = pessoaRepository.
+                findById(idPessoa)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                PESSOA_INEXISTENTE_ID));
+        List<Endereco> todos = enderecoRepository.findByPessoa(pessoa);
+        for (Endereco end : enderecoRepository.findByPessoa(pessoa)) {
+            end.setPrincipal(false);
+            todos.add(end);
+        }
+        enderecoRepository.saveAll(todos);
+        //-----
+        Endereco endereco = enderecoRepository.
+                findById(idEndereco)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                ENDERECO_INEXISTENTE_ID));
+        endereco.setPrincipal(true);
+
+        enderecoRepository.save(endereco);
     }
 }

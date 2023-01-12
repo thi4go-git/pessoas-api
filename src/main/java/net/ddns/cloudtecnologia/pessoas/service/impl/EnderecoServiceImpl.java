@@ -25,8 +25,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    private static final String PESSOA_INEXISTENTE_ID = "Não existe pessoa com esse ID!";
-    private static final String ENDERECO_INEXISTENTE_ID = "Não existe Endereço com esse ID!";
+
 
     @Override
     @Transactional
@@ -46,53 +45,5 @@ public class EnderecoServiceImpl implements EnderecoService {
         return enderecoRepository.findAll();
     }
 
-    @Override
-    public List<Endereco> listarEnderecosPessoa(Integer idPessoa) {
-        Pessoa pessoa = pessoaRepository.
-                findById(idPessoa)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                PESSOA_INEXISTENTE_ID));
-        return enderecoRepository.findByPessoa(pessoa);
-    }
 
-    @Override
-    public List<Endereco> listarEnderecoPrincipalPessoa(Integer idPessoa) {
-        Pessoa pessoa = pessoaRepository.
-                findById(idPessoa)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                PESSOA_INEXISTENTE_ID));
-        ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase();
-        Endereco endereco = new Endereco();
-        endereco.setPessoa(pessoa);
-        endereco.setPrincipal(true);
-        Example<Endereco> examplePric = Example.of(endereco, matcher);
-        return enderecoRepository.findAll(examplePric);
-    }
-
-    @Override
-    @Transactional
-    public void definirEnderecoPrincipal(Integer idPessoa, Integer idEndereco) {
-        Pessoa pessoa = pessoaRepository.
-                findById(idPessoa)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                PESSOA_INEXISTENTE_ID));
-        List<Endereco> todos = enderecoRepository.findByPessoa(pessoa);
-        for (Endereco end : enderecoRepository.findByPessoa(pessoa)) {
-            end.setPrincipal(false);
-            todos.add(end);
-        }
-        enderecoRepository.saveAll(todos);
-        //-----
-        Endereco endereco = enderecoRepository.
-                findById(idEndereco)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                ENDERECO_INEXISTENTE_ID));
-        endereco.setPrincipal(true);
-
-        enderecoRepository.save(endereco);
-    }
 }

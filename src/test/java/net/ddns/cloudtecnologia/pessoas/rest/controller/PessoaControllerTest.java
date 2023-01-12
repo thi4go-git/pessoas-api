@@ -1,5 +1,6 @@
 package net.ddns.cloudtecnologia.pessoas.rest.controller;
 
+import net.ddns.cloudtecnologia.pessoas.model.entity.Endereco;
 import net.ddns.cloudtecnologia.pessoas.model.entity.Pessoa;
 import net.ddns.cloudtecnologia.pessoas.rest.dto.PessoaDTO;
 import net.ddns.cloudtecnologia.pessoas.service.impl.PessoaServiceImpl;
@@ -10,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -79,7 +81,7 @@ class PessoaControllerTest {
 
 
     private void startPessoa() {
-        pessoaDTO = new PessoaDTO(ID, NOME, NASCIMENTO);
+        pessoaDTO = new PessoaDTO(ID, NOME, NASCIMENTO, new ArrayList<Endereco>());
         pessoa = new Pessoa(pessoaDTO);
     }
 }

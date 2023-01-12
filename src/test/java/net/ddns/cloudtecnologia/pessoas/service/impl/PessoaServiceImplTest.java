@@ -1,5 +1,6 @@
 package net.ddns.cloudtecnologia.pessoas.service.impl;
 
+import net.ddns.cloudtecnologia.pessoas.model.entity.Endereco;
 import net.ddns.cloudtecnologia.pessoas.model.entity.Pessoa;
 import net.ddns.cloudtecnologia.pessoas.model.repository.PessoaRepository;
 import net.ddns.cloudtecnologia.pessoas.rest.dto.PessoaDTO;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -127,7 +129,7 @@ class PessoaServiceImplTest {
     }
 
     private void startPessoa() {
-        pessoaDTO = new PessoaDTO(ID, NOME, NASCIMENTO);
+        pessoaDTO = new PessoaDTO(ID, NOME, NASCIMENTO, new ArrayList<Endereco>());
         pessoa = new Pessoa(pessoaDTO);
         optionalPessoa = Optional.of(new Pessoa(pessoaDTO));
     }

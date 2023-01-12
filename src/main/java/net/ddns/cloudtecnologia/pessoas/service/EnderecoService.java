@@ -9,11 +9,4 @@ public interface EnderecoService {
     Endereco salvarEndereco(EnderecoDTO dto);
 
     List<Endereco> listarEnderecos();
-
-    List<Endereco> listarEnderecosPessoa(Integer idPessoa);
-
-    List<Endereco> listarEnderecoPrincipalPessoa(Integer idPessoa);
-
-    void definirEnderecoPrincipal(Integer idPessoa, Integer idEndereco);
-
 }

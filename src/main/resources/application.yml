@@ -3,3 +3,8 @@ spring:
     active: production
   application:
     name: API de Pessoas
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://192.168.1.254:8180/realms/quarkus-keycloak-realm

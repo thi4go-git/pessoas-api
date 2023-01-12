@@ -9,7 +9,8 @@ import net.ddns.cloudtecnologia.pessoas.rest.dto.PessoaDTO;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -28,6 +29,9 @@ public class Pessoa {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
+    @OneToMany(mappedBy = "pessoa")
+    List<Endereco> enderecos = new ArrayList<>();
+    
 
     public Pessoa(PessoaDTO dto) {
         this.nome = dto.getNome();
