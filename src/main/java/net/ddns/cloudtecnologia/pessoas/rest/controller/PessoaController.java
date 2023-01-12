@@ -34,35 +34,35 @@ public class PessoaController {
     }
 
 
-    @GetMapping("/{id}")
-    public PessoaDTO consultarPessoaId(@PathVariable Integer id) {
-        return new PessoaDTO(service.consultarPessoaId(id));
+    @GetMapping("/{idPessoa}")
+    public PessoaDTO consultarPessoaId(@PathVariable Integer idPessoa) {
+        return new PessoaDTO(service.consultarPessoaId(idPessoa));
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idPessoa}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletarPessoa(@PathVariable Integer id) {
-        service.deletarPessoa(id);
+    public void deletarPessoa(@PathVariable Integer idPessoa) {
+        service.deletarPessoa(idPessoa);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{idPessoa}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarPessoa(@PathVariable Integer id,
+    public void atualizarPessoa(@PathVariable Integer idPessoa,
                                 @RequestBody @Valid PessoaDTO dto) {
-        service.atualizarPessoa(id, dto);
+        service.atualizarPessoa(idPessoa, dto);
     }
 
-    @GetMapping("/{id}/enderecos")
-    public List<EnderecoDTO> listarEnderecosDaPessoa(@PathVariable Integer id) {
+    @GetMapping("/{idPessoa}/enderecos")
+    public List<EnderecoDTO> listarEnderecosDaPessoa(@PathVariable Integer idPessoa) {
         List<EnderecoDTO> lista = new ArrayList<>();
-        service.listarEnderecosPessoa(id).stream().forEach(item -> lista.add(EnderecoDTO.converterParaDto(item)));
+        service.listarEnderecosPessoa(idPessoa).stream().forEach(item -> lista.add(EnderecoDTO.converterParaDto(item)));
         return lista;
     }
 
-    @GetMapping("/{id}/enderecos/principal")
-    public EnderecoDTO listarEnderecoPrincipalDaPessoa(@PathVariable Integer id) {
-        return new EnderecoDTO(service.listarEnderecoPrincipalPessoa(id));
+    @GetMapping("/{idPessoa}/enderecos/principal")
+    public EnderecoDTO listarEnderecoPrincipalDaPessoa(@PathVariable Integer idPessoa) {
+        return new EnderecoDTO(service.listarEnderecoPrincipalPessoa(idPessoa));
     }
 
     @PatchMapping("/{idPessoa}/enderecos/principal/{idEndereco}")

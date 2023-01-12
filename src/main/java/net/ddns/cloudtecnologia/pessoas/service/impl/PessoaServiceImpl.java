@@ -21,6 +21,7 @@ public class PessoaServiceImpl implements PessoaService {
 
     private static final String PESSOA_INEXISTENTE_ID = "Não existe pessoa com esse ID!";
     private static final String ENDERECO_INEXISTENTE_ID = "Não existe Endereço com esse ID!";
+    private static final String ENDERECO_PRINCIPAL_INEXISTENTE = "Essa Pessoa não tem Endereço Principal";
 
 
     @Autowired
@@ -98,7 +99,7 @@ public class PessoaServiceImpl implements PessoaService {
             }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                ENDERECO_INEXISTENTE_ID);
+                ENDERECO_PRINCIPAL_INEXISTENTE);
     }
 
     @Override
