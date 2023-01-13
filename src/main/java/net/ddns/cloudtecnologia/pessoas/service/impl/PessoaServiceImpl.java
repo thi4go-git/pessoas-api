@@ -9,12 +9,14 @@ import net.ddns.cloudtecnologia.pessoas.rest.dto.PessoaDTO;
 import net.ddns.cloudtecnologia.pessoas.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PessoaServiceImpl implements PessoaService {
@@ -56,16 +58,18 @@ public class PessoaServiceImpl implements PessoaService {
 
     @Override
     @Transactional
-    public void atualizarPessoa(Integer id, PessoaDTO dto) {
-        pessoaRepository.
-                findById(id)
-                .map(pessoaAchada -> {
-                    pessoaAchada.setNome(dto.getNome());
-                    pessoaAchada.setDataNascimento(LocalDate.parse(dto.getDataNascimento()));
-                    return pessoaRepository.save(pessoaAchada);
-                })
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada para atualizar!"));
+    public Pessoa atualizarPessoa(Integer id, PessoaDTO dto) {
+
+        Optional<Pessoa> option = pessoaRepository.findById(id);
+        System.out.println("Aqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+        System.out.println(option.get().getId());
+        if (option.isPresent()) {
+            Pessoa nova = option.get();
+            pessoaRepository.save(nova);
+        } else {
+            new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada para atualizar!");
+        }
+        return option.get();
     }
 
     @Override

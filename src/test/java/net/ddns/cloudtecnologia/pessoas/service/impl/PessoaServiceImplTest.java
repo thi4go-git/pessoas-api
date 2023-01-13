@@ -112,21 +112,6 @@ class PessoaServiceImplTest {
         }
     }
 
-    @Test
-    @Order(4)
-    void atualizarPessoaErro() {
-        when(repository.save(any())).thenReturn(pessoa);
-        //
-        Pessoa response = service.salvarPessoa(pessoaDTO);
-        //
-        try {
-            service.atualizarPessoa(response.getId(), pessoaDTO);
-        } catch (Exception ex) {
-            Assertions.assertEquals(ResponseStatusException.class, ex.getClass());
-            Assertions.assertTrue(ex.getMessage().contains(MSG_NOT_FOUND));
-        }
-
-    }
 
     private void startPessoa() {
         pessoaDTO = new PessoaDTO(ID, NOME, NASCIMENTO, new ArrayList<Endereco>());

@@ -26,6 +26,13 @@ public class PessoaDTO {
 
     List<Endereco> enderecos = new ArrayList<>();
 
+
+    public PessoaDTO(String nome, String dataNascimento, List<Endereco> enderecos) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.enderecos = enderecos;
+    }
+
     //
     public PessoaDTO(Pessoa pessoa) {
         this.id = pessoa.getId();

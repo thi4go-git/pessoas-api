@@ -31,11 +31,12 @@ public class Pessoa {
 
     @OneToMany(mappedBy = "pessoa")
     List<Endereco> enderecos = new ArrayList<>();
-    
+
 
     public Pessoa(PessoaDTO dto) {
         this.nome = dto.getNome();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.dataNascimento = LocalDate.parse(dto.getDataNascimento().trim(), formatter);
+        this.enderecos = dto.getEnderecos();
     }
 }
